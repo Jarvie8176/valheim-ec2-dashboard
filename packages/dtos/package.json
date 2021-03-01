@@ -1,0 +1,16 @@
+{
+  "name": "@app/dtos",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "scripts": {
+    "prebuild": "yarn clean",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "clean": "rimraf dist build coverage",
+    "lint": "eslint . --ext .ts",
+    "test": "echo 'no test'"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

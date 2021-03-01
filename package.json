@@ -1,0 +1,63 @@
+{
+  "name": "root",
+  "private": true,
+  "scripts": {
+    "clean": "lerna run clean && rimraf coverage",
+    "build": "yarn clean; lerna run build -- --project tsconfig.build.json",
+    "build:declarations": "lerna run --parallel 'build:declaration'",
+    "dep:clear": "lerna clean -y && echo 'remove node_modules'; rimraf node_modules",
+    "dep:update": "yarn workspace @app/dtos build && yarn install",
+    "lint": "lerna run lint",
+    "lint:fix": "lerna run lint -- --fix",
+    "sort-package": "sort-package-json 'package.json', 'packages/*/package.json'",
+    "start:api:dev": "yarn workspace @app/api start:dev",
+    "start:ui:dev": "yarn workspace @app/ui start",
+    "start:ui:prod": "yarn workspace @app/ui build && yarn workspace @app/ui start:prod",
+    "test": "lerna exec --concurrency 1 -- yarn test",
+    "test:coverage": "lerna exec --concurrency 1 -- yarn test --coverage",
+    "test:ci": "yarn test:coverage && yarn coverage-compose && cat coverage/lcov.info | node_modules/.bin/coveralls",
+    "coverage-compose": "node scripts/coverage-merge && yarn istanbul report --include coverage/coverage-all.json lcov"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint"
+    }
+  },
+  "workspaces": [
+    "packages/dtos",
+    "packages/ui",
+    "packages/api"
+  ],
+  "nohoist": [
+    "**/rimraf",
+    "**/rimraf/**"
+  ],
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "latest",
+    "@typescript-eslint/parser": "latest",
+    "coveralls": "latest",
+    "eslint": "latest",
+    "eslint-config-prettier": "latest",
+    "eslint-config-standard": "latest",
+    "eslint-config-typescript": "latest",
+    "eslint-plugin-import": "latest",
+    "eslint-plugin-jest": "latest",
+    "eslint-plugin-node": "latest",
+    "eslint-plugin-prettier": "latest",
+    "eslint-plugin-promise": "latest",
+    "eslint-plugin-react-hooks": "latest",
+    "eslint-plugin-standard": "latest",
+    "glob": "latest",
+    "istanbul": "latest",
+    "lerna": "latest",
+    "prettier": "latest",
+    "rimraf": "^3.0.2",
+    "sort-package-json": "latest",
+    "ts-node": "^9.1.1",
+    "ts-node-dev": "^1.1.6",
+    "typescript": "latest"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0"
+  }
+}

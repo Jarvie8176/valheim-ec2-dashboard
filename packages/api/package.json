@@ -1,0 +1,32 @@
+{
+  "name": "@app/api",
+  "version": "1.0.0",
+  "scripts": {
+    "lint": "eslint . --ext .ts,.tsx",
+    "build": "tsc",
+    "clean": "rimraf dist build coverage",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "start:debug": "yarn start:dev --debug --watch",
+    "start:dev": "NODE_ENV=development ts-node-dev src/index.ts",
+    "start:prod": "NODE_ENV=production node dist/main",
+    "test": "yarn build && NODE_ENV=test jest --runInBand",
+    "test:cov": "yarn test --coverage",
+    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "test:watch": "yarn test --watch"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.853.0",
+    "bluebird": "^3.7.2",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "helmet": "^4.4.1",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.10",
+    "@types/express": "^4.17.11",
+    "@types/helmet": "^4.0.0",
+    "@types/lodash": "^4.14.149",
+    "@types/node": "^13.9.3"
+  }
+}
