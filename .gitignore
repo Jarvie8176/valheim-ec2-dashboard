@@ -104,3 +104,6 @@ dist
 
 # React build
 build
+
+# Production config
+docker-compose.yml

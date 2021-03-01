@@ -1,0 +1,28 @@
+version: "3"
+services:
+  api:
+    build: .
+    container_name: valheim-dashboard-api
+    ports:
+      - "4000:4000"
+    environment:
+      API_PORT: "4000"
+      API_AUTH_TOKEN: ""
+      AWS_ACCESS_KEY_ID: ""
+      AWS_SECRET_ACCESS_KEY: ""
+      INSTANCE_ID: ""
+    command: "yarn start:api:prod"
+  ui:
+    build: .
+    container_name: valheim-dashboard-ui
+    ports:
+      - "5000:5000"
+    environment:
+      REACT_APP_EC2_START_URL: ""
+      REACT_APP_EC2_STOP_URL: ""
+      REACT_APP_EC2_STATUS_URL: ""
+      REACT_APP_API_AUTH_TOKEN: ""
+      REACT_APP_STATUS_CHECK_URL: ""
+      REACT_APP_SERVER_CONNECTION: ""
+      REACT_APP_SERVER_PASSWORD: ""
+    command: "yarn start:ui:prod"

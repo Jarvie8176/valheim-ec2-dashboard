@@ -3,16 +3,18 @@
   "private": true,
   "scripts": {
     "clean": "lerna run clean && rimraf coverage",
-    "build": "yarn clean; lerna run build -- --project tsconfig.build.json",
+    "build": "yarn clean; yarn config-sync; lerna run build -- --project tsconfig.build.json",
+    "config-sync": "lerna exec -- cp ../../config/.env .env",
     "build:declarations": "lerna run --parallel 'build:declaration'",
     "dep:clear": "lerna clean -y && echo 'remove node_modules'; rimraf node_modules",
     "dep:update": "yarn workspace @app/dtos build && yarn install",
     "lint": "lerna run lint",
     "lint:fix": "lerna run lint -- --fix",
     "sort-package": "sort-package-json 'package.json', 'packages/*/package.json'",
-    "start:api:dev": "yarn workspace @app/api start:dev",
-    "start:ui:dev": "yarn workspace @app/ui start",
-    "start:ui:prod": "yarn workspace @app/ui build && yarn workspace @app/ui start:prod",
+    "start:api:dev": "yarn config-sync; yarn workspace @app/api start:dev",
+    "start:api:prod": "yarn config-sync; yarn workspace @app/api start:prod",
+    "start:ui:dev": "yarn config-sync; yarn workspace @app/ui start",
+    "start:ui:prod": "yarn config-sync; yarn workspace @app/ui start:prod",
     "test": "lerna exec --concurrency 1 -- yarn test",
     "test:coverage": "lerna exec --concurrency 1 -- yarn test --coverage",
     "test:ci": "yarn test:coverage && yarn coverage-compose && cat coverage/lcov.info | node_modules/.bin/coveralls",
@@ -49,7 +51,6 @@
     "eslint-plugin-standard": "latest",
     "glob": "latest",
     "istanbul": "latest",
-    "lerna": "latest",
     "prettier": "latest",
     "rimraf": "^3.0.2",
     "sort-package-json": "latest",
@@ -58,6 +59,7 @@
     "typescript": "latest"
   },
   "dependencies": {
+    "lerna": "^3.22.1",
     "dotenv": "^8.2.0"
   }
 }

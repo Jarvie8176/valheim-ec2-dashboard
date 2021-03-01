@@ -22,6 +22,7 @@ export class ServerStatusService {
       console.error("failed to sync server status: ", err);
       this.serverStatusDto.server = new ServerStatusDto().server;
     });
+    this.serverStatusDto.syncTimestamp = new Date();
   }
 
   private async syncGameServerStatus(): Promise<void> {
@@ -29,7 +30,6 @@ export class ServerStatusService {
     const res = await axios.get(statusCheckUrl, { timeout: 10000 });
     const dto = plainToClassFromExist(this.serverStatusDto, {
       server: get(res.data, "server"),
-      syncTimestamp: new Date(),
     });
     await validate(dto);
     this.serverStatusDto = dto;
@@ -40,7 +40,6 @@ export class ServerStatusService {
     const res = await axios.get(statusCheckUrl, { timeout: 10000 });
     const dto = plainToClassFromExist(this.serverStatusDto, {
       host: res.data,
-      syncTimestamp: new Date(),
     });
     await validate(dto);
     this.serverStatusDto = dto;

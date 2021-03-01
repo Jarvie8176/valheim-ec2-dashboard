@@ -4,9 +4,6 @@ import helmet from "helmet";
 import cors from "cors";
 import AWS from "aws-sdk";
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-require("dotenv").config();
-
 const app = express();
 app.use(helmet());
 app.use(cors());
